@@ -115,6 +115,7 @@ std::vector<City> generateCities(std::string fileDirectory){
     }
     else{
         std::cout<<"ERROR : File Open !!! "<<std::endl;
+        return std:: vector<City>();
         //std::system(exit);
     }
 }// End of generateCities

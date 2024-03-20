@@ -131,7 +131,6 @@ std::vector<City> generateCities(std::string fileDirectory){
     std::vector<City> cities;
     std::ifstream f(fileDirectory);
     if(f.is_open()){
-
         while(f.good()){ // Reading file line by line
             int id1;
             f >> id1;
@@ -141,13 +140,13 @@ std::vector<City> generateCities(std::string fileDirectory){
             f >> longitude1;
             City city( id1 , latitude1 , longitude1 );
             cities.push_back(city);
-
         }
         f.close();
-    return cities;
+        return cities;
     }
     else{
         std::cout<<"ERROR : File Open !!! "<<std::endl;
+        return std::vector<City>(); // Return an empty vector if the file fails to open
     }
 }// End of generateCities
 
@@ -316,24 +315,17 @@ std::vector<int> tiling_jobs(int& nw , int ants ){
         int n = ants;
         
         for(int j = 0 ; j < nw ; j++){
-			
-			int dis = ceil((double) n / ( nw - j ));
-			
+            int dis = ceil((double) n / ( nw - j ));
             next += dis;
-            
             tiles.push_back(next);
-            
             n = n - dis;
-            
         }
         return tiles;
-        
     }
-		else{
-			std::cout << "Parallelism degree is greater than the no. of Ants !" << std::endl;
-			
-			}
-
+    else{
+        std::cout << "Parallelism degree is greater than the no. of Ants !" << std::endl;
+        return std::vector<int>(); // Return an empty vector if the conditions are not met
+    }
 }
 
 std::pair<double , std::vector<City>> find_best (std::vector<std::pair<double , std::vector<City>>>& TourLength){
